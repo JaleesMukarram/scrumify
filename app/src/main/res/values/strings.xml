@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Scrumify</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="login">Login</string>
+    <string name="create_new">Click to Register</string>
+    <string name="not_register">Not Registered?</string>
+    <string name="name">Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="register">Register</string>
+    <string name="name_error">Enter your name</string>
+    <string name="phone_error">Enter your phone number</string>
+    <string name="email_error">Enter your email address</string>
+    <string name="error_invalid_email">Invalid Email</string>
+    <string name="password_error">Enter a password</string>
+    <string name="error_invalid_password">Enter a minimum password of 6 characters</string>
 </resources>
