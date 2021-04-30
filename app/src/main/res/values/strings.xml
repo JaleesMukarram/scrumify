@@ -16,4 +16,6 @@
     <string name="password_error">Enter a password</string>
     <string name="error_invalid_password">Enter a minimum password of 6 characters</string>
     <string name="already_have_an_account">Already have an account?</string>
+    <string name="content_description">icon_description</string>
+    <string name="sign_out">Sign Out</string>
 </resources>

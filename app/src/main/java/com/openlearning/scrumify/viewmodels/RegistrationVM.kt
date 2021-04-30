@@ -24,7 +24,7 @@ class RegistrationVM : ViewModel() {
     val userAuthState: MutableLiveData<State> = MutableLiveData(State.Idle)
 
     // Repo
-    val userRepo = UserRepo
+    private val userRepo = UserRepo
 
     // Members
     var user = User()

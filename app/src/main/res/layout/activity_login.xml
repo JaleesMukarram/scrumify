@@ -1,33 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:gravity="center"
-    android:padding="16dp"
-    android:background="@drawable/gradient"
-    android:layout_height="match_parent"
-    tools:context=".ui.activities.LoginActivity">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.openlearning.scrumify.viewmodels.LoginVM" />
+
+        <variable
+            name="ready"
+            type="Boolean" />
+
+
+    </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient"
+        android:gravity="center"
+        android:padding="16dp"
+        tools:context=".ui.activities.LoginActivity">
 
         <androidx.cardview.widget.CardView
-            xmlns:Card_View="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:layout_margin="5dp"
-            android:padding="10dp"
-            Card_View:cardCornerRadius="5dp"
-            Card_View:cardElevation="5dp">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="6dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="5dp"
+                android:layout_margin="12dp"
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -45,7 +54,13 @@
                         android:inputType="textEmailAddress"
                         android:maxLines="1"
                         android:paddingStart="5dp"
-                        android:singleLine="true"/>
+                        android:paddingEnd="5dp"
+                        android:singleLine="true"
+                        android:text="@={viewModel.loginEmail}"
+                        app:errorView="@{emailError}"
+                        app:inputValidator="@{viewModel.emailValidator}"
+                        app:myIndex="@{0}"
+                        app:validArray="@{viewModel.groupValid}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -65,9 +80,27 @@
                         android:inputType="textPassword"
                         android:maxLines="1"
                         android:paddingStart="5dp"
-                        android:singleLine="true"/>
+                        android:paddingEnd="5dp"
+                        android:singleLine="true"
+                        android:text="@={viewModel.loginPassword}"
+                        app:errorView="@{passError}"
+                        app:inputValidator="@{viewModel.passwordValidator}"
+                        app:myIndex="@{1}"
+                        app:validArray="@{viewModel.groupValid}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tvError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center"
+                    android:textColor="@color/colorError"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
 
                 <Button
                     android:id="@+id/login"
@@ -75,9 +108,11 @@
                     android:layout_height="50dp"
                     android:layout_margin="20dp"
                     android:background="@drawable/button_gradient"
+                    android:enabled="@{ready}"
+                    android:onClick="@{() -> viewModel.startLogin()}"
                     android:text="@string/login"
                     android:textColor="@android:color/white"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/register"
@@ -87,10 +122,10 @@
                     android:gravity="center"
                     android:text="@string/create_new"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-    </RelativeLayout>
 
-</RelativeLayout>
+    </RelativeLayout>
+</layout>

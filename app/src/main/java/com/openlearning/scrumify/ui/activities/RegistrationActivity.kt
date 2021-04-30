@@ -90,7 +90,6 @@ class RegistrationActivity : AppCompatActivity(), CustomHooks {
 
         viewModel.groupValid.observe(this, {
 
-            Log.d(TAG, "observe: value updated $it")
             mBinding.ready = it.ifAllTrue()
 
         })
