@@ -1,133 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/gradient"
-    android:padding="16dp"
-    android:scrollbarThumbVertical="@null"
-    tools:context=".ui.activities.RegistrationActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
 
-    <androidx.cardview.widget.CardView
-        xmlns:Card_View="http://schemas.android.com/apk/res-auto"
+        <variable
+            name="viewModel"
+            type="com.openlearning.scrumify.viewmodels.RegistrationVM" />
+
+        <variable
+            name="ready"
+            type="Boolean" />
+
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="5dp"
-        android:padding="10dp"
-        Card_View:cardCornerRadius="5dp"
-        Card_View:cardElevation="5dp">
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient"
+        android:padding="16dp"
+        android:scrollbarThumbVertical="@null"
+        tools:context=".ui.activities.RegistrationActivity">
 
-        <LinearLayout
+
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="5dp"
-            android:orientation="vertical">
+            android:layout_margin="6dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="8dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/nameError"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
+                android:layout_gravity="center"
+                android:layout_margin="12dp"
+                android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/name"
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/nameError"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:hint="@string/name"
-                    android:inputType="textNoSuggestions"
-                    android:maxLines="1"
-                    android:paddingStart="5dp"
-                    android:singleLine="true"/>
+                    android:layout_marginTop="5dp"
+                    app:counterMaxLength="5">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:autofillHints="Name"
+                        android:hint="@string/name"
+                        android:inputType="textNoSuggestions"
+                        android:maxLines="1"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:singleLine="true"
+                        android:text="@={viewModel.registrationName}"
+                        app:errorView="@{nameError}"
+                        app:inputValidator="@{viewModel.minMaxValidator}"
+                        app:myIndex="@{0}"
+                        app:validArray="@{viewModel.groupValid}" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/emailError"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
 
-                <EditText
-                    android:id="@+id/email"
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/emailError"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:hint="@string/prompt_email"
-                    android:inputType="textEmailAddress"
-                    android:maxLines="1"
-                    android:paddingStart="5dp"
-                    android:singleLine="true"/>
+                    android:layout_marginTop="5dp">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:autofillHints="email"
+                        android:hint="@string/prompt_email"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:singleLine="true"
+                        android:text="@={viewModel.registrationEmail}"
+                        app:errorView="@{emailError}"
+                        app:inputValidator="@{viewModel.emailValidator}"
+                        app:myIndex="@{1}"
+                        app:validArray="@{viewModel.groupValid}" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/phoneError"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/phone"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/phoneError"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:hint="@string/phone_number"
-                    android:maxLength="12"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:paddingStart="5dp"
-                    android:singleLine="true"/>
+                    android:layout_marginTop="5dp">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:hint="@string/phone_number"
+                        android:inputType="phone"
+                        android:maxLength="13"
+                        android:maxLines="1"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:singleLine="true"
+                        android:text="@={viewModel.registrationPhone}"
+                        app:errorView="@{phoneError}"
+                        app:fixPrefix="@{`+92`}"
+                        app:inputValidator="@{viewModel.phoneValidator}"
+                        app:myIndex="@{2}"
+                        app:validArray="@{viewModel.groupValid}" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/passError"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:passwordToggleEnabled="true"
-                android:layout_marginTop="5dp">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/password"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/passError"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:hint="@string/prompt_password"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:paddingStart="5dp"
-                    android:singleLine="true"/>
+                    android:layout_marginTop="5dp"
+                    app:passwordToggleEnabled="true">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:hint="@string/prompt_password"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:singleLine="true"
+                        android:text="@={viewModel.registrationPassword}"
+                        app:errorView="@{phoneError}"
+                        app:inputValidator="@{viewModel.passwordValidator}"
+                        app:myIndex="@{3}"
+                        app:validArray="@{viewModel.groupValid}" />
 
-            <Button
-                android:id="@+id/register"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_margin="20dp"
-                android:background="@drawable/button_gradient"
-                android:text="@string/register"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:gravity="center"
-                android:text="@string/not_register"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"/>
+                <TextView
+                    android:id="@+id/tvError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center"
+                    android:textColor="@color/colorError"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                <Button
+                    android:id="@+id/register"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/button_gradient"
+                    android:enabled="@{ready}"
+                    android:onClick="@{() -> viewModel.startRegistration()}"
+                    android:text="@string/register"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
 
-</ScrollView>
+                <TextView
+                    android:id="@+id/login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center"
+                    android:text="@string/already_have_an_account"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </ScrollView>
+</layout>

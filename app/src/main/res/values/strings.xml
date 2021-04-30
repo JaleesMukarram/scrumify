@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Scrumify</string>
+    <string name="app_slogan">Manage your projects here</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="login">Login</string>
@@ -14,4 +15,5 @@
     <string name="error_invalid_email">Invalid Email</string>
     <string name="password_error">Enter a password</string>
     <string name="error_invalid_password">Enter a minimum password of 6 characters</string>
+    <string name="already_have_an_account">Already have an account?</string>
 </resources>
