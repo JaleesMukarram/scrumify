@@ -7,16 +7,24 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.ViewPropertyAnimatorListener
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.firestore.auth.User
 import com.openlearning.scrumify.databinding.ActivitySplashBinding
 import com.openlearning.scrumify.interfaces.CustomHooks
+import com.openlearning.scrumify.models.Project
+import com.openlearning.scrumify.models.ProjectUser
+import com.openlearning.scrumify.models.ROLES
+import com.openlearning.scrumify.repo.ProjectRepo
+import com.openlearning.scrumify.sealed.State
 import com.openlearning.scrumify.sealed.UserState
 import com.openlearning.scrumify.utils.common.changeActivity
 import com.openlearning.scrumify.viewmodels.SplashVM
 import kotlinx.coroutines.*
 import java.lang.Exception
+import java.util.*
+import kotlin.random.Random
 
 class Splash : AppCompatActivity(), CustomHooks {
 
@@ -57,7 +65,7 @@ class Splash : AppCompatActivity(), CustomHooks {
                         mBinding.tvAppName.visibility = View.VISIBLE
                         mBinding.pbrLoading.visibility = View.VISIBLE
 
-                        viewModel.getUserStateFromServer()
+//                        viewModel.getUserStateFromServer()
 
                     }
 
@@ -79,6 +87,19 @@ class Splash : AppCompatActivity(), CustomHooks {
             }
 
         })
+
+        val projectRepo = ProjectRepo
+
+        val state: MutableLiveData<State> = MutableLiveData(State.Idle)
+        val projectUserOld = ProjectUser("jalees123", ROLES.ADMINISTRATOR)
+        val projectUserNew = ProjectUser("jalees123", ROLES.TEAM_MEMBER)
+
+        lifecycleScope.launch {
+
+            projectRepo.updateUserInProject("d621e4b0-5be", projectUserOld, projectUserNew, state)
+
+
+        }
 
     }
 }

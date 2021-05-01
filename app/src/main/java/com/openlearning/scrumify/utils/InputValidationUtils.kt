@@ -44,7 +44,7 @@ class MinLengthValidator(private val minLength: Int, liveError: Boolean) : Valid
     override fun validate(input: String, focused: Boolean): ValidationStatus {
 
 
-        if (input.length < minLength) {
+        if (input.trim().length < minLength) {
 
             val error = ValidationStatus.Error("input less than $minLength char")
 
@@ -59,7 +59,7 @@ class MinLengthValidator(private val minLength: Int, liveError: Boolean) : Valid
             }
         }
 
-        return ValidationStatus.Success(input)
+        return ValidationStatus.Success(input.trim())
     }
 
 }
@@ -82,7 +82,7 @@ class MaxLengthValidator(private val maxLength: Int, liveError: Boolean) : Valid
             }
         }
 
-        return ValidationStatus.Success(input)
+        return ValidationStatus.Success(input.trim())
     }
 
 }
@@ -106,7 +106,7 @@ class EmailValidator(liveError: Boolean) : ValidationScheme(liveError) {
             }
         }
 
-        return ValidationStatus.Success(input)
+        return ValidationStatus.Success(input.trim())
     }
 
 }
