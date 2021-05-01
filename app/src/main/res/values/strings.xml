@@ -16,8 +16,6 @@
     <string name="error_invalid_password">Enter a minimum password of 6 characters</string>
 
 
-
-
     <string name="dateHint">--/--/----</string>
 
     <!-- NewProject Activity/Layout String -->
@@ -39,7 +37,6 @@
     <string name="title_activity_pictures_manager">PicturesManager</string>
 
 
-
     <!-- NewTask Strings -->
     <string name="priority">Priority:</string>
     <string name="percentage">Percentage done:</string>
@@ -48,4 +45,20 @@
     <string name="taskDescription">Task description:</string>
     <string name="descriptionHint">Task description</string>
 
+    <string name="title_activity_all_tasks">AllTasksActivity</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
+    <string name="title_activity_new_project">NewProjectActivity</string>
+
+    <!-- NewProject Activity/Layout String -->
+    <string name="new_project">Add New Project</string>
+    <string name="project_name">Project Name:</string>
+    <string name="addProjectHint">Project Name</string>
+    <string name="addstatusHint">Initial Status</string>
+    <string name="projectStartDate">Start Date:</string>
+    <string name="projectDueDate">Due Date:</string>
+    <string name="addProjectButton">Add Project</string>
 </resources>

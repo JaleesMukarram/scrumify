@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/LinearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="30dp" >
+
+        <TextView
+            android:id="@+id/uselessId_ProjectName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="@string/project_name" />
+
+        <EditText
+            android:id="@+id/newProject_ProjectName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/addProjectHint"
+            android:inputType="text"
+            android:imeOptions="actionDone"
+            android:paddingTop="20dp" >
+
+            <requestFocus />
+        </EditText>
+
+        <TextView
+            android:id="@+id/uselessId_Status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="@string/status" />
+
+        <Spinner
+            android:id="@+id/newProject_StatusSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:paddingTop="20dp" >
+        </Spinner>
+
+        <TextView
+            android:id="@+id/uselessId_StartDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="@string/projectStartDate" />
+
+        <EditText
+            android:id="@+id/newProject_StartDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:focusable="false"
+            android:hint="@string/dateHint"
+            android:inputType="date"
+            android:paddingTop="30dp" >
+        </EditText>
+
+        <TextView
+            android:id="@+id/uselessId_DueDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="@string/projectDueDate" />
+
+        <EditText
+            android:id="@+id/newProject_DueDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:focusable="false"
+            android:hint="@string/dateHint"
+            android:inputType="date"
+            android:paddingTop="30dp" >
+        </EditText>
+
+        <Button
+            android:id="@+id/addProject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/addProjectButton" />
+
+    </LinearLayout>
+
+
+</ScrollView>
+
