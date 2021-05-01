@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Scrumify</string>
-    <string name="app_slogan">Manage your projects here</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="login">Login</string>
@@ -15,7 +14,38 @@
     <string name="error_invalid_email">Invalid Email</string>
     <string name="password_error">Enter a password</string>
     <string name="error_invalid_password">Enter a minimum password of 6 characters</string>
-    <string name="already_have_an_account">Already have an account?</string>
-    <string name="content_description">icon_description</string>
-    <string name="sign_out">Sign Out</string>
+
+
+
+
+    <string name="dateHint">--/--/----</string>
+
+    <!-- NewProject Activity/Layout String -->
+    <string name="status">Initial Status:</string>
+
+    <string name="update">Update task</string>
+
+    <!-- TaskList Activity/Layout Strings -->
+    <string name="taskFindHint">Find Task</string>
+
+    <!-- New Task Activity/Layout Strings -->
+    <string name="new_task">Add New Task</string>
+    <string name="addTaskName">Task Name:</string>
+    <string name="addTaskHint">Task Name</string>
+    <string name="subtask">Subtask</string>
+    <string name="nestUnder">Nest Under:</string>
+    <string name="nestUnderHint">Nest Task</string>
+    <string name="addTaskButton">Add Task</string>
+    <string name="title_activity_pictures_manager">PicturesManager</string>
+
+
+
+    <!-- NewTask Strings -->
+    <string name="priority">Priority:</string>
+    <string name="percentage">Percentage done:</string>
+    <string name="taskStartDate">Task start date:</string>
+    <string name="taskDueDate">Task due date:</string>
+    <string name="taskDescription">Task description:</string>
+    <string name="descriptionHint">Task description</string>
+
 </resources>
