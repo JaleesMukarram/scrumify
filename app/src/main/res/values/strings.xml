@@ -89,4 +89,6 @@
     <string name="sign_out">Sign Out</string>
 
     <string name="app_slogan">Manage your projects here</string>
+    <string name="create_project">Create Project</string>
+    <string name="view_projects">View Projects</string>
 </resources>

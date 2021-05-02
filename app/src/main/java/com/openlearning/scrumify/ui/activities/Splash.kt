@@ -19,6 +19,7 @@ import com.openlearning.scrumify.models.ROLES
 import com.openlearning.scrumify.repo.ProjectRepo
 import com.openlearning.scrumify.sealed.State
 import com.openlearning.scrumify.sealed.UserState
+import com.openlearning.scrumify.utils.SPLASH_SKIP_ANIMATION
 import com.openlearning.scrumify.utils.common.changeActivity
 import com.openlearning.scrumify.viewmodels.SplashVM
 import kotlinx.coroutines.*
@@ -43,13 +44,58 @@ class Splash : AppCompatActivity(), CustomHooks {
     override fun callHooks() {
 
         initViews()
-        observe()
+        handleIntent()
 
+    }
+
+    override fun handleIntent() {
+
+        if (intent.getBooleanExtra(SPLASH_SKIP_ANIMATION, false)) {
+            onAnimated()
+        } else {
+            handleAppIconAnimation()
+        }
     }
 
     override fun initViews() {
 
         viewModel = ViewModelProvider(this).get(SplashVM::class.java)
+
+    }
+
+
+    override fun observe() {
+
+        viewModel.userState.observe(this, {
+
+            when (it) {
+
+                is UserState.UserSignedIn -> changeActivity(this, HomeActivity::class.java, true)
+                is UserState.NoUserSignedIn -> changeActivity(this, LoginActivity::class.java, true)
+                is UserState.Error -> Toast.makeText(this, "Error ${(it.value as Exception).localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
+        viewModel.getUserStateFromServer()
+
+
+//        val projectRepo = ProjectRepo
+//
+//          val state: MutableLiveData<State> = MutableLiveData(State.Idle)
+//          val projectUserOld = ProjectUser("jalees123", ROLES.ADMINISTRATOR)
+//          val projectUserNew = ProjectUser("jalees123", ROLES.TEAM_MEMBER)
+//
+//        lifecycleScope.launch {
+//
+//            projectRepo.updateUserInProject("d621e4b0-5be", projectUserOld, projectUserNew, state)
+//
+//
+//        }
+
+    }
+
+    private fun handleAppIconAnimation() {
 
         ViewCompat.animate(mBinding.ivAppIcon)
                 .translationY(-200f)
@@ -62,44 +108,23 @@ class Splash : AppCompatActivity(), CustomHooks {
                     override fun onAnimationStart(view: View?) {}
 
                     override fun onAnimationEnd(view: View?) {
-                        mBinding.tvAppName.visibility = View.VISIBLE
-                        mBinding.pbrLoading.visibility = View.VISIBLE
-
-//                        viewModel.getUserStateFromServer()
-
+                        onAnimated()
                     }
 
-                    override fun onAnimationCancel(view: View?) {}
+                    override fun onAnimationCancel(view: View?) {
+                        onAnimated()
+                    }
                 })
                 .start()
-
     }
 
-    override fun observe() {
+    private fun onAnimated() {
 
-        viewModel.userState.observe(this, {
+        mBinding.tvAppName.visibility = View.VISIBLE
+        mBinding.pbrLoading.visibility = View.VISIBLE
 
-            when (it) {
+        observe()
 
-                is UserState.UserSignedIn -> changeActivity(this, MainActivity::class.java, true)
-                is UserState.NoUserSignedIn -> changeActivity(this, LoginActivity::class.java, true)
-                is UserState.Error -> Toast.makeText(this, "Error ${(it.value as Exception).localizedMessage}", Toast.LENGTH_SHORT).show()
-            }
-
-        })
-
-        val projectRepo = ProjectRepo
-
-        val state: MutableLiveData<State> = MutableLiveData(State.Idle)
-        val projectUserOld = ProjectUser("jalees123", ROLES.ADMINISTRATOR)
-        val projectUserNew = ProjectUser("jalees123", ROLES.TEAM_MEMBER)
-
-        lifecycleScope.launch {
-
-            projectRepo.updateUserInProject("d621e4b0-5be", projectUserOld, projectUserNew, state)
-
-
-        }
 
     }
 }

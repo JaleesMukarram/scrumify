@@ -18,11 +18,13 @@ object UserRepo {
     private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db: CollectionReference = Firebase.firestore.collection(USER_COLLECTION)
 
-    private lateinit var currentDBUser: User
+    lateinit var currentDBUser: User
 
-    suspend fun createNewUser(user: User,
-                              password: String,
-                              progressState: MutableLiveData<State>) {
+    suspend fun createNewUser(
+        user: User,
+        password: String,
+        progressState: MutableLiveData<State>
+    ) {
 
         try {
 
@@ -33,7 +35,7 @@ object UserRepo {
             progressState.value = State.Loading("Saving Info Please Wait!")
 
             db.document(newUser.uid)
-                    .set(newUser).await()
+                .set(newUser).await()
 
             progressState.value = State.Success("Account Created Successfully")
 
@@ -45,15 +47,15 @@ object UserRepo {
     }
 
     suspend fun signInUser(
-            user: User,
-            password: String,
-            progressState: MutableLiveData<State>
+        user: User,
+        password: String,
+        progressState: MutableLiveData<State>
     ) {
 
         try {
 
             mAuth.signInWithEmailAndPassword(user.email, password)
-                    .await()
+                .await()
 
             progressState.value = State.Success("Sign In Successful")
 
@@ -81,7 +83,7 @@ object UserRepo {
 
             val id = mAuth.currentUser!!.uid
             val dbResult = db.document(id)
-                    .get().await()
+                .get().await()
 
             if (dbResult.exists()) {
 

@@ -5,6 +5,8 @@ import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
 import com.openlearning.scrumify.dialogues.LoadingDialogue
+import com.openlearning.scrumify.models.ProjectStatus
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -75,4 +77,29 @@ open class TextWatcherImpl : TextWatcher {
     }
 
 }
+
+fun getDateString(date: Date): String {
+    return SimpleDateFormat.getDateInstance().format(date)
+}
+
+fun getProjectStatusActiveArray(): ArrayList<String> {
+
+    val array = ArrayList<String>()
+    array.add(ProjectStatus.STARTED.name)
+    array.add(ProjectStatus.PENDING.name)
+
+    return array
+}
+
+fun getProjectStatusFullArray(): ArrayList<String> {
+
+    val array = ArrayList<String>()
+    array.add(ProjectStatus.STARTED.name)
+    array.add(ProjectStatus.ENDED.name)
+    array.add(ProjectStatus.PENDING.name)
+    array.add(ProjectStatus.CANCELED.name)
+
+    return array
+}
+
 

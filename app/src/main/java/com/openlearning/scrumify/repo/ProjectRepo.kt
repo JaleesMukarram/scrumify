@@ -28,14 +28,11 @@ object ProjectRepo {
         try {
             db.document(project.id).set(project).await()
             progressState.value = State.Success("Project Added Successfully")
-            Log.d(TAG, "addProject: project added")
-
 
         } catch (ex: Exception) {
 
             progressState.value = State.Failure("Failed to add project ${ex.localizedMessage}")
             db.document(project.id).delete()
-            Log.d(TAG, "addProject: failed")
         }
     }
 

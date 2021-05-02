@@ -28,4 +28,7 @@
 
     <color name="colorError">#FF2424</color>
 
+    <color name="colorWhiteShade">#F4F4F4</color>
+
+
 </resources>
