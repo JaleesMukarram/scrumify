@@ -85,6 +85,8 @@
     <string name="username">Username:</string>
     <string name="password">Password:</string>
     <string name="sign_in">Sign In</string>
+    <string name="content_description">icon_description</string>
+    <string name="sign_out">Sign Out</string>
 
-
+    <string name="app_slogan">Manage your projects here</string>
 </resources>

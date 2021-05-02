@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.openlearning.scrumify">
+    package="com.openlearning.scrumify" >
 
     <application
         android:name=".AppClass"
@@ -9,11 +9,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Scrumify">
-        <activity android:name=".ui.activities.HomeActivity"></activity>
+        android:theme="@style/Theme.Scrumify" >
+        <activity android:name=".ui.activities.UpdateUserInfo" >
+        </activity>
+        <activity android:name=".ui.activities.HomeActivity" />
         <activity android:name=".ui.activities.AddNewProject" />
         <activity android:name=".ui.activities.AddNewTask" />
-        <activity android:name=".ui.activities.Splash">
+        <activity android:name=".ui.activities.Splash" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
