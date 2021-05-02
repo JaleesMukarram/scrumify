@@ -12,7 +12,19 @@
     <color name="colorAccent">#ffff8800</color>
     <color name="zircon">#e0e6e4</color>
 
+    <color name="black_overlay">#66000000</color>
+    <color name="celeste">#87C9E6</color>
+    <color name="warning">#F02438</color>
 
+    <!-- ActionBar Colors -->
+    <color name="actionBarColor">#388E3C</color>
+    <color name="actionBarTabColor">#4CAF50</color>
+    <color name="actionBarTabTextColor">#FFFFFF</color>
+
+    <!-- ListProject Colors -->
+    <color name="listProject_ImageBackgroundColor">#FFFFFFFF</color>
+    <color name="listProject_NameBackgroundColor">#33000000</color>
+    <color name="listProject_NameColor">#FFFFFFFF</color>
 
     <color name="colorError">#FF2424</color>
 
