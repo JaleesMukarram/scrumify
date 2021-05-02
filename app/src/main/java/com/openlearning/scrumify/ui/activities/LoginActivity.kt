@@ -3,11 +3,8 @@ package com.openlearning.scrumify.ui.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import com.openlearning.scrumify.R
 import com.openlearning.scrumify.databinding.ActivityLoginBinding
-import com.openlearning.scrumify.databinding.ActivityRegistrationBinding
 import com.openlearning.scrumify.dialogues.LoadingDialogue
 import com.openlearning.scrumify.interfaces.CustomHooks
 import com.openlearning.scrumify.sealed.State
@@ -96,7 +93,7 @@ class LoginActivity : AppCompatActivity(), CustomHooks {
 
     private fun onLogInSuccess() {
 
-        val intent = Intent(this, Splash::class.java)
+        val intent = Intent(this, SplashActivity::class.java)
         intent.putExtra(SPLASH_SKIP_ANIMATION, true)
         changeActivity(this, intent, true)
     }

@@ -8,9 +8,11 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.auth.FirebaseAuthCredentialsProvider
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.openlearning.scrumify.models.Project
 import com.openlearning.scrumify.models.User
 import com.openlearning.scrumify.sealed.State
 import com.openlearning.scrumify.sealed.UserState
+import com.openlearning.scrumify.utils.common.getMyContainsArray
 import kotlinx.coroutines.tasks.await
 
 object UserRepo {
@@ -106,5 +108,22 @@ object UserRepo {
     fun signOut() {
         mAuth.signOut()
 
+    }
+
+    suspend fun getAllUsers(): List<User>? {
+
+        try {
+
+            val qss = db.get().await()
+
+            if (qss.isEmpty) {
+                return null
+            }
+
+            return qss.toObjects(User::class.java)
+
+        } catch (ex: java.lang.Exception) {
+            return null
+        }
     }
 }

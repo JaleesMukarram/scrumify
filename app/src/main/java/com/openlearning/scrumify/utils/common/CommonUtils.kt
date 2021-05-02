@@ -1,13 +1,17 @@
 package com.openlearning.scrumify.utils.common
 
 import android.app.Activity
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import com.openlearning.scrumify.dialogues.LoadingDialogue
-import com.openlearning.scrumify.models.ProjectStatus
+import com.openlearning.scrumify.models.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 fun showLoading(activity: Activity, message: String, description: String): LoadingDialogue {
@@ -91,6 +95,15 @@ fun getProjectStatusActiveArray(): ArrayList<String> {
     return array
 }
 
+fun getRolesArray(): ArrayList<String> {
+
+    val array = ArrayList<String>()
+    array.add(ROLES.SCRUM_MASTER.name.replace("_", " "))
+    array.add(ROLES.TEAM_MEMBER.name.replace("_", " "))
+
+    return array
+}
+
 fun getProjectStatusFullArray(): ArrayList<String> {
 
     val array = ArrayList<String>()
@@ -102,4 +115,29 @@ fun getProjectStatusFullArray(): ArrayList<String> {
     return array
 }
 
+fun getMyContainsArray(myId: String): ArrayList<ProjectUser> {
+
+    val array = ArrayList<ProjectUser>()
+
+    array.add(ProjectUser(myId, ROLES.ADMINISTRATOR))
+    array.add(ProjectUser(myId, ROLES.SCRUM_MASTER))
+    array.add(ProjectUser(myId, ROLES.TEAM_MEMBER))
+
+    return array
+}
+
+fun getMyRole(project: Project, myId: String): ROLES? {
+
+    for (pUser in project.projectUsers) {
+        if (pUser.userId == myId) {
+            return pUser.role
+        }
+    }
+    return null
+}
+
+fun View.hideKeyboard() {
+    val inputMethodManager = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
+}
 

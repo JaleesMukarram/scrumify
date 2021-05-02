@@ -5,10 +5,12 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import com.google.android.material.textfield.TextInputLayout
+import com.openlearning.scrumify.models.ROLES
 import com.openlearning.scrumify.utils.InputValidator
 import com.openlearning.scrumify.utils.ValidationStatus
 import com.openlearning.scrumify.utils.extensions.value
@@ -38,14 +40,23 @@ fun fixPrefix(view: EditText, prefix: String) {
     })
 }
 
+@BindingAdapter("app:userRoleFormatted")
+fun projectStatusFormat(editText: TextView, roles: ROLES) {
 
-@BindingAdapter(value = ["app:inputValidator", "app:errorView", "app:validArray", "app:myIndex"], requireAll = true)
+    editText.text = roles.name.replace("_", " ")!!
+}
+
+
+@BindingAdapter(
+    value = ["app:inputValidator", "app:errorView", "app:validArray", "app:myIndex"],
+    requireAll = true
+)
 fun addInPutValidator(
-        editText: EditText,
-        inputValidator: InputValidator,
-        errorInput: TextInputLayout,
-        validArray: MutableLiveData<MutableList<Boolean>>,
-        myIndex: Int
+    editText: EditText,
+    inputValidator: InputValidator,
+    errorInput: TextInputLayout,
+    validArray: MutableLiveData<MutableList<Boolean>>,
+    myIndex: Int
 ) {
 
     var inputStarted = false
@@ -53,19 +64,40 @@ fun addInPutValidator(
 
     editText.addTextChangedListener {
         inputStarted = true
-        validateInput(inputValidator, errorInput, editText.value, editText.isFocused, validArray, myIndex)
+        validateInput(
+            inputValidator,
+            errorInput,
+            editText.value,
+            editText.isFocused,
+            validArray,
+            myIndex
+        )
 
     }
 
     editText.onFocusChangeListener = View.OnFocusChangeListener { _, _ ->
         if (inputStarted) {
-            validateInput(inputValidator, errorInput, editText.value, editText.isFocused, validArray, myIndex)
+            validateInput(
+                inputValidator,
+                errorInput,
+                editText.value,
+                editText.isFocused,
+                validArray,
+                myIndex
+            )
         }
     }
 }
 
 
-private fun validateInput(inputValidator: InputValidator, errorInput: TextInputLayout, input: String, focused: Boolean, validArray: MutableLiveData<MutableList<Boolean>>, myIndex: Int) {
+private fun validateInput(
+    inputValidator: InputValidator,
+    errorInput: TextInputLayout,
+    input: String,
+    focused: Boolean,
+    validArray: MutableLiveData<MutableList<Boolean>>,
+    myIndex: Int
+) {
 
     Log.d(TAG, "validateInput: validating")
     for (scheme in inputValidator.validationSchemes) {

@@ -1,5 +1,6 @@
 package com.openlearning.scrumify.ui.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import com.openlearning.scrumify.databinding.ActivityRegistrationBinding
 import com.openlearning.scrumify.dialogues.LoadingDialogue
 import com.openlearning.scrumify.interfaces.CustomHooks
 import com.openlearning.scrumify.sealed.State
+import com.openlearning.scrumify.utils.SPLASH_SKIP_ANIMATION
 import com.openlearning.scrumify.utils.common.changeActivity
 import com.openlearning.scrumify.utils.common.showLoading
 import com.openlearning.scrumify.utils.extensions.ifAllTrue
@@ -74,15 +76,14 @@ class RegistrationActivity : AppCompatActivity(), CustomHooks {
                 }
                 is State.Loading -> {
                     loader = showLoading(
-                            this,
-                            "Please wait !!",
-                            it.value as String
+                        this,
+                        "Please wait !!",
+                        it.value as String
                     )
                 }
                 is State.Success -> {
                     loader?.cancel()
-                    Toast.makeText(this, "Account Created Successfully", Toast.LENGTH_SHORT).show()
-                    changeActivity(this, MainActivity::class.java, true)
+                    onRegistrationSuccess()
                 }
             }
         })
@@ -95,5 +96,12 @@ class RegistrationActivity : AppCompatActivity(), CustomHooks {
         })
 
 
+    }
+
+    private fun onRegistrationSuccess() {
+
+        val intent = Intent(this, SplashActivity::class.java)
+        intent.putExtra(SPLASH_SKIP_ANIMATION, true)
+        changeActivity(this, intent, true)
     }
 }

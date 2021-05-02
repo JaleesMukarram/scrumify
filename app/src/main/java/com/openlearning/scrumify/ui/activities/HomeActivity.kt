@@ -2,7 +2,6 @@ package com.openlearning.scrumify.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.openlearning.scrumify.R
 import com.openlearning.scrumify.databinding.ActivityHomeBinding
 import com.openlearning.scrumify.interfaces.CustomHooks
 import com.openlearning.scrumify.utils.common.changeActivity
@@ -39,6 +38,12 @@ class HomeActivity : AppCompatActivity(), CustomHooks {
         mBinding.cvCreateProject.setOnClickListener {
 
             changeActivity(this, AddNewProject::class.java, false)
+
+        }
+
+        mBinding.cvViewProject.setOnClickListener {
+
+            changeActivity(this, ShowProjectsActivity::class.java, false)
 
         }
     }

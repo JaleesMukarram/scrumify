@@ -11,9 +11,12 @@
     <color name="colorPrimaryDark">#76a5df</color>
     <color name="colorAccent">#ffff8800</color>
     <color name="zircon">#e0e6e4</color>
+    <color name="bgColor">#3E54A5</color>
 
     <color name="black_overlay">#66000000</color>
     <color name="celeste">#87C9E6</color>
+    <color name="celesteLight">#C7EEFF</color>
+
     <color name="warning">#F02438</color>
 
     <!-- ActionBar Colors -->

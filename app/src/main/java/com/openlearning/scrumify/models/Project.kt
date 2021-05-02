@@ -1,9 +1,12 @@
 package com.openlearning.scrumify.models
 
+import android.os.Parcelable
 import com.google.firebase.firestore.ServerTimestamp
 import com.openlearning.scrumify.utils.common.getRandomID
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 
+@Parcelize
 data class Project(
     val id: String = getRandomID(),
     val name: String = "",
@@ -13,12 +16,15 @@ data class Project(
     val creationDate: Date? = null,
     val startDate: Date? = null,
     val endDate: Date? = null
-)
+) : Parcelable
 
+@Parcelize
 data class ProjectUser(
-    val userId: String,
-    val role: ROLES
-)
+    val userId: String = "",
+    val role: ROLES = ROLES.TEAM_MEMBER
+) : Parcelable
+
+data class ProjectUserData(val user: User, val role: ROLES)
 
 
 enum class ProjectStatus {
@@ -26,7 +32,6 @@ enum class ProjectStatus {
     ENDED,
     PENDING,
     CANCELED,
-
 }
 
 enum class ROLES {

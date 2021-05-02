@@ -27,7 +27,7 @@ import java.lang.Exception
 import java.util.*
 import kotlin.random.Random
 
-class Splash : AppCompatActivity(), CustomHooks {
+class SplashActivity : AppCompatActivity(), CustomHooks {
 
     private lateinit var mBinding: ActivitySplashBinding
     private lateinit var viewModel: SplashVM
@@ -72,7 +72,11 @@ class Splash : AppCompatActivity(), CustomHooks {
 
                 is UserState.UserSignedIn -> changeActivity(this, HomeActivity::class.java, true)
                 is UserState.NoUserSignedIn -> changeActivity(this, LoginActivity::class.java, true)
-                is UserState.Error -> Toast.makeText(this, "Error ${(it.value as Exception).localizedMessage}", Toast.LENGTH_SHORT).show()
+                is UserState.Error -> Toast.makeText(
+                    this,
+                    "Error ${(it.value as Exception).localizedMessage}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
         })
@@ -98,24 +102,24 @@ class Splash : AppCompatActivity(), CustomHooks {
     private fun handleAppIconAnimation() {
 
         ViewCompat.animate(mBinding.ivAppIcon)
-                .translationY(-200f)
-                .setStartDelay(512L)
-                .setDuration(1600L)
-                .setInterpolator(DecelerateInterpolator(1.2f))
+            .translationY(-200f)
+            .setStartDelay(512L)
+            .setDuration(1200L)
+            .setInterpolator(DecelerateInterpolator(1.4f))
 
-                .setListener(object : ViewPropertyAnimatorListener {
+            .setListener(object : ViewPropertyAnimatorListener {
 
-                    override fun onAnimationStart(view: View?) {}
+                override fun onAnimationStart(view: View?) {}
 
-                    override fun onAnimationEnd(view: View?) {
-                        onAnimated()
-                    }
+                override fun onAnimationEnd(view: View?) {
+                    onAnimated()
+                }
 
-                    override fun onAnimationCancel(view: View?) {
-                        onAnimated()
-                    }
-                })
-                .start()
+                override fun onAnimationCancel(view: View?) {
+                    onAnimated()
+                }
+            })
+            .start()
     }
 
     private fun onAnimated() {
