@@ -10,7 +10,9 @@ import androidx.core.widget.addTextChangedListener
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import com.google.android.material.textfield.TextInputLayout
+import com.openlearning.scrumify.R
 import com.openlearning.scrumify.models.ROLES
+import com.openlearning.scrumify.models.TaskPriority
 import com.openlearning.scrumify.utils.InputValidator
 import com.openlearning.scrumify.utils.ValidationStatus
 import com.openlearning.scrumify.utils.extensions.value
@@ -44,6 +46,32 @@ fun fixPrefix(view: EditText, prefix: String) {
 fun projectStatusFormat(editText: TextView, roles: ROLES) {
 
     editText.text = roles.name.replace("_", " ")!!
+}
+
+@BindingAdapter("app:taskPriority")
+fun taskPriority(textView: TextView, taskPriority: TaskPriority) {
+
+    val context = textView.context
+    textView.text = taskPriority.name
+
+    when (taskPriority) {
+
+        TaskPriority.LOW -> {
+
+            textView.backgroundTintList = context.getColorStateList(R.color.colorPriorityLow)
+
+        }
+        TaskPriority.NORMAL -> {
+
+            textView.backgroundTintList = context.getColorStateList(R.color.colorPriorityNormal)
+
+        }
+        TaskPriority.URGENT -> {
+
+            textView.backgroundTintList = context.getColorStateList(R.color.colorPriorityUrgent)
+
+        }
+    }
 }
 
 

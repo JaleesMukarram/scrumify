@@ -193,5 +193,10 @@ class ProjectDetailsVM : ViewModel() {
         return null
     }
 
+    fun getMyId(): String {
+
+        return userRepo.currentDBUser.uid
+    }
+
 
 }

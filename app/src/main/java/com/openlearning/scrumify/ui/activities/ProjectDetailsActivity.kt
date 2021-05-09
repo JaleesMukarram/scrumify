@@ -1,5 +1,6 @@
 package com.openlearning.scrumify.ui.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,13 +12,12 @@ import com.openlearning.scrumify.adapters.NewUserSearchAdapter
 import com.openlearning.scrumify.databinding.ActivityProjectDetailsBinding
 import com.openlearning.scrumify.dialogues.ProjectUserNewDialogue
 import com.openlearning.scrumify.interfaces.CustomHooks
-import com.openlearning.scrumify.models.Project
-import com.openlearning.scrumify.models.ProjectUser
-import com.openlearning.scrumify.models.ProjectUserData
-import com.openlearning.scrumify.models.User
+import com.openlearning.scrumify.models.*
 import com.openlearning.scrumify.sealed.State
 import com.openlearning.scrumify.utils.PROJECT_INTENT
 import com.openlearning.scrumify.utils.common.TextWatcherImpl
+import com.openlearning.scrumify.utils.common.changeActivity
+import com.openlearning.scrumify.utils.common.getMyRole
 import com.openlearning.scrumify.utils.common.hideKeyboard
 import com.openlearning.scrumify.utils.extensions.value
 import com.openlearning.scrumify.viewmodels.ProjectDetailsVM
@@ -54,6 +54,7 @@ class ProjectDetailsActivity : AppCompatActivity(), CustomHooks {
         project = intent.getParcelableExtra(PROJECT_INTENT)
         if (project == null) {
             finish()
+            return
         }
     }
 
@@ -106,6 +107,12 @@ class ProjectDetailsActivity : AppCompatActivity(), CustomHooks {
                 }
             }
         })
+
+        mBinding.cvTasks.setOnClickListener {
+            val intent = Intent(this, TasksActivity::class.java)
+            intent.putExtra(PROJECT_INTENT, viewModel.projectState.value!!)
+            changeActivity(this, intent, false)
+        }
     }
 
     override fun observe() {
@@ -135,11 +142,53 @@ class ProjectDetailsActivity : AppCompatActivity(), CustomHooks {
         })
 
         viewModel.getAllUserFromRepo()
+
+        changeUserView(viewModel.getMyId())
     }
 
     override fun onBackPressed() {
         finish()
     }
+
+    private fun changeUserView(myId: String) {
+
+        when (getMyRole(project!!, myId)) {
+            ROLES.ADMINISTRATOR -> {
+
+                makeAdminView()
+            }
+            ROLES.SCRUM_MASTER -> {
+
+                makeScrumMasterView()
+            }
+            ROLES.TEAM_MEMBER -> {
+
+                makeTeamMemberView()
+            }
+        }
+
+    }
+
+
+    private fun makeAdminView() {
+
+        changeTopSearchVisibility(true)
+        Log.d(TAG, "makeAdminView: I am admin")
+    }
+
+    private fun makeScrumMasterView() {
+
+        changeTopSearchVisibility(true)
+        Log.d(TAG, "makeAdminView: I am scrum master")
+
+    }
+
+    private fun makeTeamMemberView() {
+        changeTopSearchVisibility(false)
+        Log.d(TAG, "makeAdminView: I am team member")
+
+    }
+
 
     private fun onSearching(queryStirng: String) {
 
@@ -177,6 +226,16 @@ class ProjectDetailsActivity : AppCompatActivity(), CustomHooks {
 
         addedUserAdapter.projectUserDatas = adapterUsers
         addedUserAdapter.notifyDataSetChanged()
+    }
+
+    private fun changeTopSearchVisibility(visible: Boolean) {
+
+        val visibility = when (visible) {
+            true -> View.VISIBLE
+            false -> View.GONE
+        }
+        mBinding.mcvTopSearchBar.visibility = visibility
+        mBinding.rvAllNewUsers.visibility = visibility
     }
 
     private val removeUser: (User) -> Unit = {

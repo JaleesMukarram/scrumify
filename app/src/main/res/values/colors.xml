@@ -30,8 +30,14 @@
     <color name="listProject_NameColor">#FFFFFFFF</color>
 
     <color name="colorError">#FF2424</color>
-
     <color name="colorWhiteShade">#F4F4F4</color>
+
+    <color name="colorPriorityLow">#D024FF</color>
+    <color name="colorPriorityNormal">#F0FF24</color>
+    <color name="colorPriorityUrgent">#FF2424</color>
+
+
+    <color name="colorFull">#15EBFF</color>
 
 
 </resources>

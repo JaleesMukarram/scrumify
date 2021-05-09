@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.openlearning.scrumify.databinding.ItemAddedUserBinding
+import com.openlearning.scrumify.databinding.ItemProjectTeamMemberBinding
 import com.openlearning.scrumify.models.ProjectUserData
 import com.openlearning.scrumify.models.User
 
@@ -16,7 +17,7 @@ class AddedUserAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddedUserVM {
 
         val binding =
-            ItemAddedUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemProjectTeamMemberBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return AddedUserVM(binding)
 
     }
@@ -34,7 +35,7 @@ class AddedUserAdapter(
         return projectUserDatas.size
     }
 
-    inner class AddedUserVM(val binding: ItemAddedUserBinding) :
+    inner class AddedUserVM(val binding: ItemProjectTeamMemberBinding) :
         RecyclerView.ViewHolder(binding.root)
 
 }

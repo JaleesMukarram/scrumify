@@ -95,4 +95,10 @@
     <string name="add">Add</string>
     <string name="team_members">Team Members</string>
     <string name="remove">Remove</string>
+    <string name="backlog">Backlog</string>
+    <string name="tasks">Tasks</string>
+    <string name="task_name">Task Name</string>
+    <string name="add_tasks">Add Tasks</string>
+    <string name="update_task">Update Task</string>
+    <string name="delete_task">Delete Task</string>
 </resources>
