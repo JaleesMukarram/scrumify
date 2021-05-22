@@ -6,7 +6,9 @@ import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
+import com.openlearning.scrumify.AppClass
 import com.openlearning.scrumify.dialogues.LoadingDialogue
 import com.openlearning.scrumify.models.*
 import java.text.SimpleDateFormat
@@ -139,5 +141,11 @@ fun getMyRole(project: Project, myId: String): ROLES? {
 fun View.hideKeyboard() {
     val inputMethodManager = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
+}
+
+
+fun animateItemView(itemView: View, animResource: Int) {
+    val animation = AnimationUtils.loadAnimation(AppClass.instance, animResource)
+    itemView.animation = animation
 }
 

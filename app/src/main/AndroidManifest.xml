@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Scrumify">
-        <activity android:name=".ui.activities.TasksActivity"></activity>
+        <activity android:name=".ui.activities.SprintsActivity"></activity>
+        <activity android:name=".ui.activities.TasksActivity" />
         <activity android:name=".ui.activities.ProjectDetailsActivity" />
         <activity android:name=".ui.activities.ShowProjectsActivity" />
         <activity android:name=".ui.activities.UpdateUserInfoActivity" />

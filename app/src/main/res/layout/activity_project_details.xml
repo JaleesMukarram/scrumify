@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:cardCornerRadius="12dp"
             app:cardElevation="16dp">
 
@@ -62,7 +62,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:orientation="vertical"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -178,6 +178,48 @@
                                     android:lineSpacingExtra="-8dp"
                                     android:padding="4dp"
                                     android:text="@string/tasks"
+                                    android:textAlignment="center"
+                                    android:textColor="#F3FFFFFF"
+                                    android:textSize="16sp" />
+
+
+                            </RelativeLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cvSprints"
+                            android:layout_width="120dp"
+                            android:layout_height="100dp"
+                            android:layout_margin="16dp"
+                            android:orientation="vertical"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="12dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/colorFull">
+
+                                <ImageView
+                                    android:id="@+id/image2"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="15dp"
+                                    android:background="@drawable/ic_sprint"
+                                    android:contentDescription="@string/content_description"
+                                    android:padding="20dp"
+                                    app:tint="#fff" />
+
+                                <TextView
+                                    android:id="@+id/tex2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_marginBottom="24dp"
+                                    android:lineSpacingExtra="-8dp"
+                                    android:padding="4dp"
+                                    android:text="@string/sprints"
                                     android:textAlignment="center"
                                     android:textColor="#F3FFFFFF"
                                     android:textSize="16sp" />

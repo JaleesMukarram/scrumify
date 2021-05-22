@@ -113,6 +113,12 @@ class ProjectDetailsActivity : AppCompatActivity(), CustomHooks {
             intent.putExtra(PROJECT_INTENT, viewModel.projectState.value!!)
             changeActivity(this, intent, false)
         }
+
+        mBinding.cvSprints.setOnClickListener {
+            val intent = Intent(this, SprintsActivity::class.java)
+            intent.putExtra(PROJECT_INTENT, viewModel.projectState.value!!)
+            changeActivity(this, intent, false)
+        }
     }
 
     override fun observe() {

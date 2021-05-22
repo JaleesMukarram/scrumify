@@ -9,8 +9,9 @@ import com.openlearning.scrumify.models.Task
 import com.openlearning.scrumify.models.User
 
 class TaskAdapter(
-    private var projectTasks: List<Task>,
-    val taskEdit: (Task) -> Unit
+    var projectTasks: List<Task>,
+    val taskEdit: (Task) -> Unit,
+    val taskOpen: (Task) -> Unit
 ) :
     RecyclerView.Adapter<TaskAdapter.TaskVH>() {
 
@@ -26,6 +27,10 @@ class TaskAdapter(
 
         val task = projectTasks[position]
         holder.binding.task = task
+
+        holder.binding.root.setOnClickListener {
+            taskOpen(task)
+        }
         holder.binding.ivEdit.setOnClickListener {
             taskEdit(task)
         }

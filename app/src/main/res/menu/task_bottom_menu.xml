@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/task"
+        android:icon="@drawable/ic_task"
+        android:title="@string/tasks" />
+
+    <item
+        android:id="@+id/sprint"
+        android:icon="@drawable/ic_sprint"
+        android:title="@string/sprints" />
+
+</menu>

@@ -14,5 +14,7 @@ interface CustomHooks {
 
     fun refresh() {}
 
+    fun loaded(){}
+
 
 }

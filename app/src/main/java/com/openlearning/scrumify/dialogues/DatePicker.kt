@@ -20,7 +20,8 @@ import java.util.*
 class DatePicker(
     private val activity: Activity,
     private val returnDate: (Date) -> Unit,
-    private val minDate: Date? = null
+    private val minDate: Date? = null,
+    private val maxDate: Date? = null,
 ) : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -34,6 +35,9 @@ class DatePicker(
         val dialog = DatePickerDialog(activity, this, year, month, day)
         if (minDate != null) {
             dialog.datePicker.minDate = minDate.time
+        }
+        if (maxDate != null){
+            dialog.datePicker.maxDate = maxDate.time
         }
         return dialog
     }
