@@ -1,13 +1,20 @@
 package com.openlearning.scrumify.ui.activities
 
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.openlearning.scrumify.R
 import com.openlearning.scrumify.databinding.ActivityTasksBinding
 import com.openlearning.scrumify.interfaces.CustomHooks
 import com.openlearning.scrumify.models.Project
+import com.openlearning.scrumify.models.SprintTask
+import com.openlearning.scrumify.repo.PROJECT_COLLECTION
+import com.openlearning.scrumify.repo.TASK_COLLECTION
 import com.openlearning.scrumify.ui.fragments.SprintFragment
 import com.openlearning.scrumify.ui.fragments.TaskFragment
 import com.openlearning.scrumify.utils.PROJECT_INTENT
@@ -79,7 +86,42 @@ class TasksActivity : AppCompatActivity(), CustomHooks {
 
     }
 
-    override fun observe() {}
+    override fun observe() {
+
+        viewModelSprints.allSprints.observe(this, {
+
+            if (it != null && it.isNotEmpty()) {
+                viewModelTasks.sprintsAvailable.value = true
+            }
+
+        })
+
+        viewModelTasks.taskToMoveInSprint.observe(this, {
+
+            viewModelSprints.enableSprintSelection.value = true
+            mBinding.bnvBottomOptions.findViewById<View>(R.id.sprint).performClick()
+
+        })
+
+        // Selected for sprint task
+        viewModelSprints.sprintSelected.observe(this, {
+
+            val sprintTasK =
+                SprintTask(
+                    taskReference = Firebase.firestore.collection(PROJECT_COLLECTION)
+                        .document(viewModelTasks.project.id)
+                        .collection(TASK_COLLECTION)
+                        .document(viewModelTasks.taskToMoveInSprint.value!!.id),
+                    sprintId = it.id
+                )
+            viewModelSprints.addSprintTask(sprintTasK)
+
+        })
+
+        viewModelTasks.getAllTasks()
+        viewModelSprints.getAllSprints()
+
+    }
 
     private fun attachFragment(fragment: Fragment) {
 

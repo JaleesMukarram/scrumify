@@ -53,14 +53,25 @@ class TaskFragment : Fragment(), CustomHooks {
 
         taskAdapter = TaskAdapter(
             arrayListOf(),
-            {
+
+            // Task Edit
+            { index ->
                 TaskDialogue(
                     requireActivity(),
                     taskReady,
-                    it,
+                    viewModel.allTasks.value!![index],
                     { viewModel.deleteTask(it) }).show()
             },
-            { openTask(it) }
+
+            // Task Click
+            { index -> openTask(viewModel.allTasks.value!![index]) },
+
+
+            // Add To Sprint
+            {
+
+                viewModel.taskToMoveInSprint.value = viewModel.allTasks.value!![it]
+            }
         )
 
         mBinding.rvAllTasks.adapter = taskAdapter
@@ -107,7 +118,12 @@ class TaskFragment : Fragment(), CustomHooks {
             }
         })
 
-        viewModel.getAllTasks()
+        viewModel.sprintsAvailable.observe(viewLifecycleOwner, {
+
+            if (it) {
+                taskAdapter.sprintAvailable = true
+            }
+        })
 
     }
 

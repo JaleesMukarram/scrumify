@@ -4,8 +4,11 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
@@ -48,11 +51,21 @@ fun projectStatusFormat(editText: TextView, roles: ROLES) {
     editText.text = roles.name.replace("_", " ")!!
 }
 
+@BindingAdapter("app:buttonVisible")
+fun buttonVisibility(button: Button, visible: Boolean) {
+
+    button.visibility = when (visible) {
+        true -> View.VISIBLE
+        false -> View.INVISIBLE
+    }
+}
+
 @BindingAdapter("app:taskPriority")
 fun taskPriority(textView: TextView, taskPriority: TaskPriority) {
 
     val context = textView.context
     textView.text = taskPriority.name
+    textView.visibility = View.VISIBLE
 
     when (taskPriority) {
 
@@ -69,6 +82,40 @@ fun taskPriority(textView: TextView, taskPriority: TaskPriority) {
         TaskPriority.URGENT -> {
 
             textView.backgroundTintList = context.getColorStateList(R.color.colorPriorityUrgent)
+
+        }
+    }
+}
+
+@BindingAdapter("app:taskPriorityBackground")
+fun taskPriorityBackground(
+    constraintLayout: ConstraintLayout,
+    taskPriority: TaskPriority
+) {
+
+    val context = constraintLayout.context
+
+    when (taskPriority) {
+
+        TaskPriority.LOW -> {
+
+            constraintLayout.background =
+                ContextCompat.getDrawable(context, R.color.colorPriorityLow)
+
+
+        }
+        TaskPriority.NORMAL -> {
+
+            constraintLayout.background =
+                ContextCompat.getDrawable(context, R.color.colorPriorityNormal)
+
+
+        }
+        TaskPriority.URGENT -> {
+
+            constraintLayout.background =
+                ContextCompat.getDrawable(context, R.color.colorPriorityUrgent)
+
 
         }
     }

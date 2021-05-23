@@ -12,6 +12,7 @@
     <color name="colorAccent">#ffff8800</color>
     <color name="zircon">#e0e6e4</color>
     <color name="bgColor">#3E54A5</color>
+    <color name="gray">#8E8D8D</color>
 
     <color name="black_overlay">#66000000</color>
     <color name="celeste">#87C9E6</color>
@@ -32,12 +33,13 @@
     <color name="colorError">#FF2424</color>
     <color name="colorWhiteShade">#F4F4F4</color>
 
-    <color name="colorPriorityLow">#D024FF</color>
-    <color name="colorPriorityNormal">#F0FF24</color>
+    <color name="colorPriorityLow">#008732</color>
+    <color name="colorPriorityNormal">#24B2FF</color>
     <color name="colorPriorityUrgent">#FF2424</color>
 
 
     <color name="colorFull">#F1863E</color>
+    <color name="colorBg">#3E54A5</color>
 
 
 </resources>

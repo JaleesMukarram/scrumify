@@ -1,6 +1,8 @@
 package com.openlearning.scrumify.repo
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -10,6 +12,8 @@ import kotlinx.coroutines.tasks.await
 import java.lang.Exception
 
 object TaskRepo {
+
+    private const val TAG = "TaskRepoTAG"
 
 
     suspend fun addNewTask(
@@ -99,6 +103,23 @@ object TaskRepo {
 
         } catch (ex: Exception) {
             return null
+        }
+    }
+
+    suspend fun getTaskAtReference(
+        taskReference: DocumentReference
+    ): Task? {
+
+        return try {
+            val dss = taskReference
+                .get()
+                .await()
+
+            dss.toObject(Task::class.java)
+
+        } catch (ex: Exception) {
+            Log.e(TAG, "getTaskAtReference: ", ex)
+            null
         }
     }
 

@@ -109,4 +109,9 @@
     <string name="all_sprints">All Sprints</string>
     <string name="add_sprint">Add Sprint</string>
     <string name="deadline">Deadline</string>
+    <string name="add_to_sprint">Add to Sprint</string>
+    <string name="pending">Pending</string>
+    <string name="completed">Completed</string>
+    <string name="closed">Closed</string>
+    <string name="assigned_to">Assigned to</string>
 </resources>

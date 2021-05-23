@@ -10,8 +10,10 @@ import com.openlearning.scrumify.models.User
 
 class TaskAdapter(
     var projectTasks: List<Task>,
-    val taskEdit: (Task) -> Unit,
-    val taskOpen: (Task) -> Unit
+    val taskEdit: (Int) -> Unit,
+    val taskOpen: (Int) -> Unit,
+    val addToSprint: (Int) -> Unit,
+    var sprintAvailable: Boolean = false
 ) :
     RecyclerView.Adapter<TaskAdapter.TaskVH>() {
 
@@ -27,13 +29,20 @@ class TaskAdapter(
 
         val task = projectTasks[position]
         holder.binding.task = task
+        holder.binding.sprintAvailable = sprintAvailable
 
         holder.binding.root.setOnClickListener {
-            taskOpen(task)
+            taskOpen(position)
         }
         holder.binding.ivEdit.setOnClickListener {
-            taskEdit(task)
+            taskEdit(position)
         }
+        holder.binding.btnAddToSprint.setOnClickListener {
+
+            addToSprint(position)
+        }
+
+
     }
 
     override fun getItemCount(): Int {

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.openlearning.scrumify.AppClass
 import com.openlearning.scrumify.adapters.SprintAdapter
 import com.openlearning.scrumify.databinding.FragmentSprintsBinding
 import com.openlearning.scrumify.dialogues.SprintDialogue
@@ -50,9 +51,24 @@ class SprintFragment : Fragment(), CustomHooks {
 
         mBinding.viewModel = viewModel
 
-        sprintAdapter = SprintAdapter(arrayListOf()) { sprintEdit ->
+        sprintAdapter = SprintAdapter(
+            requireContext(),
+            arrayListOf(),
+            // Sprint Edit
+            {},
+            // Sprint Clicked
+            {
 
-        }
+                viewModel.sprintSelected.value = viewModel.allSprints.value!![it]
+
+            },
+            // Sprint Task Clicked
+            { sprint, sprintTask ->
+
+
+
+            }
+        )
 
         mBinding.rvAllSprints.adapter = sprintAdapter
     }
@@ -77,7 +93,7 @@ class SprintFragment : Fragment(), CustomHooks {
             when (it) {
                 is State.Success -> {
 
-//                    viewModel.getAllTasks()
+                    viewModel.getAllSprints()
 
                 }
 
@@ -95,14 +111,36 @@ class SprintFragment : Fragment(), CustomHooks {
 
         })
 
-
         viewModel.allSprints.observe(viewLifecycleOwner, {
 
             onSprintsReady(it)
 
         })
-        viewModel.getAllSprints()
 
+        viewModel.enableSprintSelection.observe(viewLifecycleOwner, {
+
+            if (it) {
+
+                sprintAdapter.sprintSelection = true
+                sprintAdapter.notifyDataSetChanged()
+                viewModel.enableSprintSelection.value = false
+            }
+        })
+
+        viewModel.sprintTaskUploadProgress.observe(viewLifecycleOwner, {
+
+            when (it) {
+                is State.Success -> {
+                    viewModel.getAllSprintTasks(viewModel.allSprints.value!!)
+                }
+                is State.Failure -> Toast.makeText(
+                    requireContext(),
+                    "Failed to add sprint task",
+                    Toast.LENGTH_SHORT
+                ).show()
+                else -> Unit
+            }
+        })
     }
 
     private fun onSprintsReady(sprints: List<Sprint>?) {

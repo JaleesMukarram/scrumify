@@ -75,7 +75,7 @@ class SprintDialogue(
                 )
                     .show(
                         (activity as AppCompatActivity).supportFragmentManager,
-                        "Select Ending Date"
+                        "Select Starting Date"
                     )
 
             }

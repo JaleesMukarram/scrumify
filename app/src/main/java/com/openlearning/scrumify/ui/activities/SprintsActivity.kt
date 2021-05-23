@@ -21,13 +21,6 @@ import com.openlearning.scrumify.viewmodels.SprintsVM
 class SprintsActivity : AppCompatActivity(), CustomHooks {
 
     private lateinit var mBinding: ActivitySprintsBinding
-    private lateinit var viewModel: SprintsVM
-
-
-    private var project: Project? = null
-
-    private lateinit var sprintAdapter: SprintAdapter
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,18 +40,11 @@ class SprintsActivity : AppCompatActivity(), CustomHooks {
     }
 
     override fun handleIntent() {
-        project = intent.getParcelableExtra(PROJECT_INTENT)
-        if (project == null) {
-            finish()
-            return
-        }
+
     }
 
     override fun initViews() {
 
-        viewModel = ViewModelProvider(this).get(SprintsVM::class.java)
-        viewModel.project = project!!
-        mBinding.viewModel = viewModel
 
     }
 
@@ -69,39 +55,6 @@ class SprintsActivity : AppCompatActivity(), CustomHooks {
 
     override fun observe() {
 
-        viewModel.sprintUploadProgress.observe(this, {
 
-            when (it) {
-                is State.Success -> {
-
-//                    viewModel.getAllTasks()
-
-                }
-
-                is State.Failure -> {
-
-                    Toast.makeText(
-                        this,
-                        "`Filed to upload task ${(it.value as Exception).localizedMessage}`",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                }
-                else -> Unit
-            }
-
-        })
-
-        viewModel.allSprints.observe(this, {
-            if (it != null) {
-
-                sprintAdapter = SprintAdapter(it) { editTask ->
-
-                }
-
-                mBinding.rvAllSprints.adapter = sprintAdapter
-            }
-        })
-        viewModel.getAllSprints()
     }
 }

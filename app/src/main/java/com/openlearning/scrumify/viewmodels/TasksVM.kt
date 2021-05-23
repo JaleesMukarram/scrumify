@@ -19,6 +19,8 @@ class TasksVM : ViewModel() {
 
     // State
     val taskUploadProgress: MutableLiveData<State> = MutableLiveData(State.Idle)
+    val sprintsAvailable: MutableLiveData<Boolean> = MutableLiveData(false)
+    val taskToMoveInSprint: MutableLiveData<Task> = MutableLiveData()
 
     // Repo
     private val taskRepo = TaskRepo
