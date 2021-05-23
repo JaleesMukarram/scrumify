@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "647188168852",
+    "project_id": "scrumify-76517",
+    "storage_bucket": "scrumify-76517.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:647188168852:android:e36dd3c2712486b9d13481",
+        "android_client_info": {
+          "package_name": "com.openlearning.scrumify"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "647188168852-m2age5n1sr3vlniv910k9r0aidu6ca46.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDc9Wn-Fj7lE0PSyvyCY8W8lANzvC02Xww"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "647188168852-m2age5n1sr3vlniv910k9r0aidu6ca46.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

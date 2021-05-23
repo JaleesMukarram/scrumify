@@ -7,4 +7,39 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#2a7ee6</color>
+    <color name="colorPrimaryDark">#76a5df</color>
+    <color name="colorAccent">#ffff8800</color>
+    <color name="zircon">#e0e6e4</color>
+    <color name="bgColor">#3E54A5</color>
+    <color name="gray">#8E8D8D</color>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="celeste">#87C9E6</color>
+    <color name="celesteLight">#C7EEFF</color>
+
+    <color name="warning">#F02438</color>
+
+    <!-- ActionBar Colors -->
+    <color name="actionBarColor">#388E3C</color>
+    <color name="actionBarTabColor">#4CAF50</color>
+    <color name="actionBarTabTextColor">#FFFFFF</color>
+
+    <!-- ListProject Colors -->
+    <color name="listProject_ImageBackgroundColor">#FFFFFFFF</color>
+    <color name="listProject_NameBackgroundColor">#33000000</color>
+    <color name="listProject_NameColor">#FFFFFFFF</color>
+
+    <color name="colorError">#FF2424</color>
+    <color name="colorWhiteShade">#F4F4F4</color>
+
+    <color name="colorPriorityLow">#008732</color>
+    <color name="colorPriorityNormal">#24B2FF</color>
+    <color name="colorPriorityUrgent">#FF2424</color>
+
+
+    <color name="colorFull">#F1863E</color>
+    <color name="colorBg">#3E54A5</color>
+
+
 </resources>

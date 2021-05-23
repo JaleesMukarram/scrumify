@@ -1,6 +1,7 @@
 package com.openlearning.scrumify
 
 import android.app.Application
+import android.widget.EditText
 
 class AppClass : Application() {
 
