@@ -114,4 +114,12 @@
     <string name="completed">Completed</string>
     <string name="closed">Closed</string>
     <string name="assigned_to">Assigned to</string>
+    <string name="task_status">Task Status</string>
+    <string name="save">Save</string>
+    <string name="remove_from_sprint">Remove from Sprint</string>
+    <string name="assign_to">Assign to</string>
+    <string name="currently_assigned_to">Currently Assigned to</string>
+    <string name="starting">Starting</string>
+    <string name="ending">Ending</string>
+    <string name="progress">Progress</string>
 </resources>

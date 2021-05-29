@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -16,9 +17,12 @@ import com.google.android.material.textfield.TextInputLayout
 import com.openlearning.scrumify.R
 import com.openlearning.scrumify.models.ROLES
 import com.openlearning.scrumify.models.TaskPriority
+import com.openlearning.scrumify.models.TaskStatus
 import com.openlearning.scrumify.utils.InputValidator
 import com.openlearning.scrumify.utils.ValidationStatus
+import com.openlearning.scrumify.utils.common.getDateString
 import com.openlearning.scrumify.utils.extensions.value
+import java.util.*
 
 
 private const val TAG = "EditTextCustoms"
@@ -49,6 +53,14 @@ fun fixPrefix(view: EditText, prefix: String) {
 fun projectStatusFormat(editText: TextView, roles: ROLES) {
 
     editText.text = roles.name.replace("_", " ")!!
+}
+
+@BindingAdapter("app:dateString")
+fun setDate(textView: TextView, date: Date?) {
+
+    if (date == null) return
+
+    textView.text = getDateString(date)
 }
 
 @BindingAdapter("app:buttonVisible")
@@ -82,6 +94,55 @@ fun taskPriority(textView: TextView, taskPriority: TaskPriority) {
         TaskPriority.URGENT -> {
 
             textView.backgroundTintList = context.getColorStateList(R.color.colorPriorityUrgent)
+
+        }
+    }
+}
+
+@BindingAdapter("app:taskStatusIcon")
+fun sprintTaskStatusIcon(imageView: ImageView, taskStatus: TaskStatus) {
+
+    when (taskStatus) {
+
+        TaskStatus.PENDING -> {
+
+            imageView.setImageResource(R.drawable.ic_pending_actions)
+
+        }
+        TaskStatus.CLOSED -> {
+
+            imageView.setImageResource(R.drawable.ic_backspace)
+
+        }
+        TaskStatus.COMPLETE -> {
+
+            imageView.setImageResource(R.drawable.ic_done)
+
+        }
+    }
+}
+
+@BindingAdapter("app:taskStatusColor")
+fun sprintTaskStatusColor(textView: TextView, taskStatus: TaskStatus) {
+
+    textView.text = taskStatus.name
+    val context = textView.context
+
+    when (taskStatus) {
+
+        TaskStatus.PENDING -> {
+
+            textView.setTextColor(context.getColor(R.color.colorFull))
+
+        }
+        TaskStatus.CLOSED -> {
+
+            textView.setTextColor(context.getColor(R.color.gray))
+
+        }
+        TaskStatus.COMPLETE -> {
+
+            textView.setTextColor(context.getColor(R.color.colorPriorityLow))
 
         }
     }

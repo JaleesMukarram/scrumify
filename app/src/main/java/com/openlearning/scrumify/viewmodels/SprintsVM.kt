@@ -4,12 +4,10 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.openlearning.scrumify.models.Project
-import com.openlearning.scrumify.models.Sprint
-import com.openlearning.scrumify.models.SprintTask
-import com.openlearning.scrumify.models.Task
+import com.openlearning.scrumify.models.*
 import com.openlearning.scrumify.repo.SprintRepo
 import com.openlearning.scrumify.repo.TaskRepo
+import com.openlearning.scrumify.repo.UserRepo
 import com.openlearning.scrumify.sealed.State
 import kotlinx.coroutines.launch
 
@@ -21,10 +19,14 @@ class SprintsVM : ViewModel() {
 
     // Fields
     val allSprints: MutableLiveData<List<Sprint>> = MutableLiveData()
+    val allProjectUsers: MutableLiveData<List<ProjectUserData>> = MutableLiveData()
+
 
     // State
     val sprintUploadProgress: MutableLiveData<State> = MutableLiveData(State.Idle)
     val sprintTaskUploadProgress: MutableLiveData<State> = MutableLiveData(State.Idle)
+
+    val refreshAdapters: MutableLiveData<Boolean> = MutableLiveData()
 
     val enableSprintSelection: MutableLiveData<Boolean> = MutableLiveData(false)
     val sprintSelected: MutableLiveData<Sprint> = MutableLiveData()
@@ -32,6 +34,7 @@ class SprintsVM : ViewModel() {
     // Repo
     private val sprintRepo = SprintRepo
     private val taskRepo = TaskRepo
+    private val userRepo = UserRepo
 
     fun addNewSprint(sprint: Sprint) {
 
@@ -66,15 +69,15 @@ class SprintsVM : ViewModel() {
                 sprint.sprintTasks = sprintRepo.getSprintTask(project.id, sprint)
 
                 if (sprint.sprintTasks != null && sprint.sprintTasks!!.isNotEmpty()) {
+
                     for (sprintTask in sprint.sprintTasks!!) {
                         sprintTask.task = taskRepo.getTaskAtReference(sprintTask.taskReference)
                         Log.d(TAG, "getAllSprintTasks: task ${sprintTask.task}")
                     }
                 }
             }
+            allSprints.value = sprints
         }
-
-        allSprints.value = sprints
     }
 
     fun addSprintTask(sprintTasK: SprintTask) {
@@ -86,5 +89,67 @@ class SprintsVM : ViewModel() {
         }
     }
 
+    fun updateSprintTask(sprintTasK: SprintTask) {
+
+        viewModelScope.launch {
+
+            sprintRepo.updateSprintTask(project.id, sprintTasK, sprintTaskUploadProgress)
+
+        }
+    }
+
+    fun deleteSprintTask(sprintTasK: SprintTask) {
+
+        viewModelScope.launch {
+
+            sprintRepo.deleteSprintTask(project.id, sprintTasK, sprintTaskUploadProgress)
+
+        }
+    }
+
+    fun getAllUserFromRepo() {
+
+        viewModelScope.launch {
+
+            val projectUsersIds = getProjectUserIds()
+
+            val projectDBUsers = userRepo.getAllUsers()!!.filter {
+                it.uid in projectUsersIds
+            }
+
+            val userData: MutableList<ProjectUserData> = arrayListOf()
+
+            for (pUser in project.projectUsers) {
+
+                val user = getUserOfThisId(projectDBUsers, pUser.userId)
+                if (user != null) {
+                    userData.add(ProjectUserData(user, pUser.role))
+                }
+            }
+
+            allProjectUsers.value = userData
+
+        }
+    }
+
+    private fun getProjectUserIds(): List<String> {
+
+        val list: MutableList<String> = arrayListOf()
+
+        for (projectUser in project.projectUsers) {
+            list.add(projectUser.userId)
+        }
+        return list
+    }
+
+    private fun getUserOfThisId(allUsers: List<User>, uid: String): User? {
+
+        for (user in allUsers) {
+            if (user.uid == uid) {
+                return user
+            }
+        }
+        return null
+    }
 
 }

@@ -17,7 +17,7 @@
         android:layout_margin="12dp"
         android:clickable="true"
         android:focusable="true"
-        android:minHeight="400dp"
+        android:paddingBottom="12dp"
         app:cardCornerRadius="12dp"
         app:cardElevation="8dp">
 
@@ -55,12 +55,12 @@
                 android:id="@+id/horizontalScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvName">
+                app:layout_constraintTop_toBottomOf="@+id/pbrSprintProgress">
 
                 <LinearLayout
                     android:id="@+id/llTasksAppender"
@@ -72,6 +72,80 @@
                 </LinearLayout>
 
             </HorizontalScrollView>
+
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:dateString="@{sprint.startDate}"
+                app:layout_constraintStart_toStartOf="@+id/tvName"
+                app:layout_constraintTop_toBottomOf="@+id/tvName"
+                tools:text="23 Dec 2021" />
+
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:dateString="@{sprint.endDate}"
+                app:layout_constraintBottom_toBottomOf="@+id/textView6"
+                app:layout_constraintStart_toEndOf="@+id/imageView5"
+                app:layout_constraintTop_toTopOf="@+id/textView6"
+                tools:text="23 Dec 2021" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="30dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="4dp"
+                android:contentDescription="@string/content_description"
+                app:layout_constraintBottom_toBottomOf="@+id/textView6"
+                app:layout_constraintStart_toEndOf="@+id/textView6"
+                app:layout_constraintTop_toTopOf="@+id/textView6"
+                app:srcCompat="@drawable/ic_arrow_forward"
+                app:tint="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/progress"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/textView6"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+            <ProgressBar
+                android:id="@+id/pbrSprintProgress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:progress="20"
+                android:theme="@style/Widget.AppCompat.ProgressBar"
+                app:layout_constraintEnd_toStartOf="@+id/tvSprintProgress"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+            <TextView
+                android:id="@+id/tvSprintProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/pbrSprintProgress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/pbrSprintProgress" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

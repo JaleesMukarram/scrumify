@@ -22,6 +22,9 @@ class TasksVM : ViewModel() {
     val sprintsAvailable: MutableLiveData<Boolean> = MutableLiveData(false)
     val taskToMoveInSprint: MutableLiveData<Task> = MutableLiveData()
 
+    val refreshAdapters: MutableLiveData<Boolean> = MutableLiveData()
+
+
     // Repo
     private val taskRepo = TaskRepo
 

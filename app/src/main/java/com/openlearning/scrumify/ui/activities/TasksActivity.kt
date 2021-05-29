@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.openlearning.scrumify.R
@@ -18,8 +19,11 @@ import com.openlearning.scrumify.repo.TASK_COLLECTION
 import com.openlearning.scrumify.ui.fragments.SprintFragment
 import com.openlearning.scrumify.ui.fragments.TaskFragment
 import com.openlearning.scrumify.utils.PROJECT_INTENT
+import com.openlearning.scrumify.utils.TASK_SHOW_SPRINT
 import com.openlearning.scrumify.viewmodels.SprintsVM
 import com.openlearning.scrumify.viewmodels.TasksVM
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class TasksActivity : AppCompatActivity(), CustomHooks {
 
@@ -54,6 +58,14 @@ class TasksActivity : AppCompatActivity(), CustomHooks {
         if (project == null) {
             finish()
             return
+        }
+
+        if (intent.getBooleanExtra(TASK_SHOW_SPRINT, false)) {
+
+            lifecycleScope.launch {
+                delay(500)
+                mBinding.bnvBottomOptions.findViewById<View>(R.id.sprint).performClick()
+            }
         }
     }
 
@@ -120,6 +132,7 @@ class TasksActivity : AppCompatActivity(), CustomHooks {
 
         viewModelTasks.getAllTasks()
         viewModelSprints.getAllSprints()
+        viewModelSprints.getAllUserFromRepo()
 
     }
 

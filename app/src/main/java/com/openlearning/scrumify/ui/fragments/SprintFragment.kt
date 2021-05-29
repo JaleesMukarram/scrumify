@@ -1,22 +1,25 @@
 package com.openlearning.scrumify.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.openlearning.scrumify.AppClass
 import com.openlearning.scrumify.adapters.SprintAdapter
 import com.openlearning.scrumify.databinding.FragmentSprintsBinding
 import com.openlearning.scrumify.dialogues.SprintDialogue
+import com.openlearning.scrumify.dialogues.SprintTaskDialogue
 import com.openlearning.scrumify.interfaces.CustomHooks
 import com.openlearning.scrumify.models.Sprint
 import com.openlearning.scrumify.sealed.State
 import com.openlearning.scrumify.viewmodels.SprintsVM
 
 class SprintFragment : Fragment(), CustomHooks {
+
+    private val TAG = "SprintFragmentTAG"
 
     private lateinit var mBinding: FragmentSprintsBinding
     private val viewModel: SprintsVM by activityViewModels()
@@ -54,6 +57,7 @@ class SprintFragment : Fragment(), CustomHooks {
         sprintAdapter = SprintAdapter(
             requireContext(),
             arrayListOf(),
+            viewModel.allProjectUsers.value,
             // Sprint Edit
             {},
             // Sprint Clicked
@@ -65,8 +69,28 @@ class SprintFragment : Fragment(), CustomHooks {
             // Sprint Task Clicked
             { sprint, sprintTask ->
 
+                SprintTaskDialogue(
+                    requireActivity(),
+                    sprint,
+                    sprintTask,
+                    viewModel.allProjectUsers.value,
+                    // Sprint Task Update
+                    {
 
+                        viewModel.updateSprintTask(it)
+                        sprintAdapter.notifyDataSetChanged()
 
+                    },
+                    // Sprint Task Delete
+                    {
+                        sprint.sprintTasks = sprint.sprintTasks?.filter { filter ->
+                            filter != it
+                        }
+                        viewModel.deleteSprintTask(it)
+                        sprintAdapter.notifyDataSetChanged()
+
+                    }
+                ).show()
             }
         )
 
@@ -141,6 +165,19 @@ class SprintFragment : Fragment(), CustomHooks {
                 else -> Unit
             }
         })
+
+        viewModel.allProjectUsers.observe(viewLifecycleOwner, {
+
+            sprintAdapter.projectUsers = it
+            sprintAdapter.notifyDataSetChanged()
+
+        })
+
+        viewModel.refreshAdapters.observe(viewLifecycleOwner, {
+
+            sprintAdapter.notifyDataSetChanged()
+
+        })
     }
 
     private fun onSprintsReady(sprints: List<Sprint>?) {
@@ -149,6 +186,13 @@ class SprintFragment : Fragment(), CustomHooks {
 
             sprintAdapter.projectSprints = sprints
             sprintAdapter.notifyDataSetChanged()
+        }
+
+        mBinding.apply {
+
+            mcvMainContainer.visibility = View.VISIBLE
+            progressBar.visibility = View.GONE
+
         }
     }
 
