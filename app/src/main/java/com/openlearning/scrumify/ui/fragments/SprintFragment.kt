@@ -1,7 +1,6 @@
 package com.openlearning.scrumify.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,7 +77,7 @@ class SprintFragment : Fragment(), CustomHooks {
                     {
 
                         viewModel.updateSprintTask(it)
-                        sprintAdapter.notifyDataSetChanged()
+//                        sprintAdapter.notifyDataSetChanged()
 
                     },
                     // Sprint Task Delete
@@ -89,7 +88,7 @@ class SprintFragment : Fragment(), CustomHooks {
                         viewModel.deleteSprintTask(it)
                         sprintAdapter.notifyDataSetChanged()
 
-                    }
+                    },
                 ).show()
             }
         )

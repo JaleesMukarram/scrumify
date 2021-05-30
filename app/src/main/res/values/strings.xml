@@ -122,4 +122,9 @@
     <string name="starting">Starting</string>
     <string name="ending">Ending</string>
     <string name="progress">Progress</string>
+    <string name="assign_now_to">Assign now to</string>
+    <string name="issues">Issues</string>
+    <string name="issue">Issue</string>
+    <string name="issue_description">Issue Description</string>
+    <string name="add_issue">Add Issue</string>
 </resources>

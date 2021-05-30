@@ -15,7 +15,7 @@
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        app:cardCornerRadius="8dp"
+        app:cardCornerRadius="4dp"
         app:cardElevation="4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -82,17 +82,25 @@
                 app:layout_constraintTop_toBottomOf="@+id/llStatusContainer" />
 
             <TextView
+                android:id="@+id/tvTaskIssueCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/colorPriorityUrgent"
+                app:layout_constraintTop_toBottomOf="@+id/llAssignedUsersAppender" />
+
+            <TextView
                 android:id="@+id/tvTaskDeadline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:textColor="@color/colorBg"
                 android:textSize="12sp"
                 app:dateString="@{sprintTask.deadline}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/llAssignedUsersAppender"
+                app:layout_constraintTop_toBottomOf="@+id/tvTaskIssueCount"
                 tools:text="26 May 2021" />
 
 

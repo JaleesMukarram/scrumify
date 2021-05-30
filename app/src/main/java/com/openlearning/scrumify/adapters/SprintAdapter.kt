@@ -84,6 +84,10 @@ class SprintAdapter(
 
                     binding.sprintTask = sprintTask
 
+                    if (sprintTask.taskIssues.size > 0) {
+                        binding.tvTaskIssueCount.text = "${sprintTask.taskIssues.size} issue(s)"
+                    }
+
                     binding.root.setOnClickListener {
 
                         onSprintTaskClicked(sprint, sprintTask)

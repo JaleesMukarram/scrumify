@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
 import com.openlearning.scrumify.R
 import com.openlearning.scrumify.databinding.ViewSprintTaskDialogueBinding
 import com.openlearning.scrumify.databinding.ViewTaskAssignedToBinding
+import com.openlearning.scrumify.databinding.ViewTaskIssueBinding
 import com.openlearning.scrumify.models.*
 import com.openlearning.scrumify.utils.common.animateItemView
 import com.openlearning.scrumify.utils.common.getDateString
@@ -57,7 +59,8 @@ class SprintTaskDialogue(
 
         mBinding.sprintTaskDialogue = this
 
-        addUserToFreeAndAssigned()
+        validateAssignedUsers()
+        validateTaskIssue()
         initListeners()
 
         if (deadline != null) {
@@ -115,9 +118,64 @@ class SprintTaskDialogue(
             cancel()
 
         }
+
+        mBinding.tvAddIssue.setOnClickListener {
+
+            TaskIssueDialogue(
+                activity
+            ) {
+
+                sprintTask.taskIssues.add(it)
+                validateTaskIssue()
+
+            }.show()
+
+        }
     }
 
-    private fun addUserToFreeAndAssigned() {
+    private fun validateTaskIssue() {
+
+        mBinding.llTaskIssuesAppender.removeAllViews()
+
+        for (taskIssue in sprintTask.taskIssues) {
+
+            val binding = ViewTaskIssueBinding.inflate(
+                LayoutInflater.from(activity),
+                mBinding.llTaskIssuesAppender,
+                false
+            ).also {
+                animateItemView(it.root, R.anim.fade_in)
+            }
+
+            binding.apply {
+
+                this.taskIssue = taskIssue
+                mcvMainContainer.setOnClickListener {
+
+                    if (tvTaskIssueDescription.isVisible) {
+                        tvTaskIssueDescription.visibility = View.GONE
+                    } else {
+                        tvTaskIssueDescription.visibility = View.VISIBLE
+                    }
+                }
+
+                ivClose.setOnClickListener {
+
+                    sprintTask.taskIssues.remove(taskIssue)
+                    validateTaskIssue()
+                }
+
+            }
+
+            mBinding.llTaskIssuesAppender.addView(binding.root)
+
+
+        }
+
+
+    }
+
+    private fun validateAssignedUsers() {
 
         if (projectUsers == null) {
             return
@@ -174,13 +232,13 @@ class SprintTaskDialogue(
     private fun addThisUserToSprintTask(user: ProjectUserData) {
 
         alreadyAssignedUsers.add(user.user.uid)
-        addUserToFreeAndAssigned()
+        validateAssignedUsers()
     }
 
     private fun removeThisUserFromSprintTask(userId: String) {
 
         alreadyAssignedUsers.remove(userId)
-        addUserToFreeAndAssigned()
+        validateAssignedUsers()
     }
 
     private fun cancel() {
