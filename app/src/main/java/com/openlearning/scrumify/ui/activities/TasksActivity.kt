@@ -1,6 +1,7 @@
 package com.openlearning.scrumify.ui.activities
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,7 @@ import com.openlearning.scrumify.R
 import com.openlearning.scrumify.databinding.ActivityTasksBinding
 import com.openlearning.scrumify.interfaces.CustomHooks
 import com.openlearning.scrumify.models.Project
+import com.openlearning.scrumify.models.ROLES
 import com.openlearning.scrumify.models.SprintTask
 import com.openlearning.scrumify.repo.PROJECT_COLLECTION
 import com.openlearning.scrumify.repo.TASK_COLLECTION
@@ -20,6 +22,7 @@ import com.openlearning.scrumify.ui.fragments.SprintFragment
 import com.openlearning.scrumify.ui.fragments.TaskFragment
 import com.openlearning.scrumify.utils.PROJECT_INTENT
 import com.openlearning.scrumify.utils.TASK_SHOW_SPRINT
+import com.openlearning.scrumify.utils.common.getMyRole
 import com.openlearning.scrumify.viewmodels.SprintsVM
 import com.openlearning.scrumify.viewmodels.TasksVM
 import kotlinx.coroutines.delay

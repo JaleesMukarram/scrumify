@@ -198,9 +198,9 @@ class ProjectDetailsActivity : AppCompatActivity(), CustomHooks {
     }
 
 
-    private fun onSearching(queryStirng: String) {
+    private fun onSearching(queryString: String) {
 
-        val users = viewModel.getFilteredUsers(queryStirng)
+        val users = viewModel.getFilteredUsers(queryString)
 
         if (users != null) {
 

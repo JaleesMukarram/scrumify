@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Dialog
 import android.view.LayoutInflater
 import android.view.View
+import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -27,6 +28,7 @@ class SprintTaskDialogue(
     private val projectUsers: List<ProjectUserData>?,
     private val onSave: (SprintTask) -> Unit,
     private val onDelete: (SprintTask) -> Unit,
+    private val forTeamMember: Boolean = false,
     private val alreadyAssignedUsers: MutableList<String> = ArrayList(sprintTask.assignedUsers),
     private var deadline: Date? = sprintTask.deadline
 
@@ -67,7 +69,12 @@ class SprintTaskDialogue(
             mBinding.tvEndDate.text = getDateString(deadline!!)
         }
 
-        mDialog = Dialog(activity, android.R.style.Theme_DeviceDefault_NoActionBar_Fullscreen)
+        if (forTeamMember) {
+
+            makeForTeamMember()
+        }
+
+        mDialog = Dialog(activity, android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen)
         mDialog.setContentView(mBinding.root)
         mDialog.show()
 
@@ -77,6 +84,27 @@ class SprintTaskDialogue(
                 mBinding.sprProjectStatus.setSelection(sprintTask.taskStatus.ordinal)
             }
         }
+    }
+
+    private fun makeForTeamMember() {
+
+        mBinding.apply {
+
+            // Date
+            ivSelectEndDate.visibility = View.GONE
+
+
+            alreadyAssignToUser.visibility = View.GONE
+            llAssignedUserAppender.visibility = View.GONE
+
+            assignToUser.visibility = View.GONE
+            llFreeUserAppender.visibility = View.GONE
+
+            btnDelete.visibility = View.GONE
+
+        }
+
+
     }
 
     private fun initListeners() {

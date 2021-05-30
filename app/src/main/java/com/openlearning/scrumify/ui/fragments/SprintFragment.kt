@@ -12,8 +12,10 @@ import com.openlearning.scrumify.databinding.FragmentSprintsBinding
 import com.openlearning.scrumify.dialogues.SprintDialogue
 import com.openlearning.scrumify.dialogues.SprintTaskDialogue
 import com.openlearning.scrumify.interfaces.CustomHooks
+import com.openlearning.scrumify.models.ROLES
 import com.openlearning.scrumify.models.Sprint
 import com.openlearning.scrumify.sealed.State
+import com.openlearning.scrumify.utils.common.getMyRole
 import com.openlearning.scrumify.viewmodels.SprintsVM
 
 class SprintFragment : Fragment(), CustomHooks {
@@ -22,6 +24,8 @@ class SprintFragment : Fragment(), CustomHooks {
 
     private lateinit var mBinding: FragmentSprintsBinding
     private val viewModel: SprintsVM by activityViewModels()
+
+    private var forTeamMember: Boolean = false
 
     private lateinit var sprintAdapter: SprintAdapter
 
@@ -89,8 +93,9 @@ class SprintFragment : Fragment(), CustomHooks {
                         sprintAdapter.notifyDataSetChanged()
 
                     },
+                    forTeamMember
                 ).show()
-            }
+            },
         )
 
         mBinding.rvAllSprints.adapter = sprintAdapter
@@ -177,6 +182,44 @@ class SprintFragment : Fragment(), CustomHooks {
             sprintAdapter.notifyDataSetChanged()
 
         })
+
+        changeUserView(viewModel.getMyId())
+
+    }
+
+    private fun changeUserView(myId: String) {
+
+        when (getMyRole(viewModel.project, myId)) {
+            ROLES.ADMINISTRATOR -> {
+
+                makeAdminView()
+            }
+            ROLES.SCRUM_MASTER -> {
+
+                makeScrumMasterView()
+            }
+            ROLES.TEAM_MEMBER -> {
+
+                makeTeamMemberView()
+            }
+        }
+
+    }
+
+
+    private fun makeAdminView() {
+
+    }
+
+    private fun makeScrumMasterView() {
+
+
+    }
+
+    private fun makeTeamMemberView() {
+
+        forTeamMember = true
+        mBinding.fabNewSprint.visibility = View.GONE
     }
 
     private fun onSprintsReady(sprints: List<Sprint>?) {
