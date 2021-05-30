@@ -15,6 +15,7 @@ import com.openlearning.scrumify.interfaces.CustomHooks
 import com.openlearning.scrumify.models.*
 import com.openlearning.scrumify.sealed.State
 import com.openlearning.scrumify.utils.PROJECT_INTENT
+import com.openlearning.scrumify.utils.TASK_SHOW_SPRINT
 import com.openlearning.scrumify.utils.common.TextWatcherImpl
 import com.openlearning.scrumify.utils.common.changeActivity
 import com.openlearning.scrumify.utils.common.getMyRole
@@ -115,8 +116,9 @@ class ProjectDetailsActivity : AppCompatActivity(), CustomHooks {
         }
 
         mBinding.cvSprints.setOnClickListener {
-            val intent = Intent(this, SprintsActivity::class.java)
+            val intent = Intent(this, TasksActivity::class.java)
             intent.putExtra(PROJECT_INTENT, viewModel.projectState.value!!)
+            intent.putExtra(TASK_SHOW_SPRINT, true)
             changeActivity(this, intent, false)
         }
     }
@@ -196,9 +198,9 @@ class ProjectDetailsActivity : AppCompatActivity(), CustomHooks {
     }
 
 
-    private fun onSearching(queryStirng: String) {
+    private fun onSearching(queryString: String) {
 
-        val users = viewModel.getFilteredUsers(queryStirng)
+        val users = viewModel.getFilteredUsers(queryString)
 
         if (users != null) {
 

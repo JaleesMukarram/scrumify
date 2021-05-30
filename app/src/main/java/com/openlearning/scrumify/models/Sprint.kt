@@ -21,11 +21,18 @@ data class SprintTask(
     val id: String = getRandomID(),
     val taskReference: DocumentReference = Firebase.firestore.collection("a").document("a"),
     val sprintId: String = "",
-    val deadline: Date? = null,
-    val assignedUsers: List<ProjectUser> = arrayListOf(),
-    val taskStatus: TaskStatus = TaskStatus.PENDING,
+    var deadline: Date? = null,
+    val assignedUsers: MutableList<String> = arrayListOf(),
+    var taskStatus: TaskStatus = TaskStatus.PENDING,
+    val taskIssues: MutableList<TaskIssue> = arrayListOf(),
     @Exclude
     var task: Task? = null
+)
+
+data class TaskIssue(
+    val issue: String = "",
+    val description: String = "",
+    val priority: TaskPriority = TaskPriority.NORMAL
 )
 
 enum class TaskStatus {

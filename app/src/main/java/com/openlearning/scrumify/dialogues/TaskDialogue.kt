@@ -76,7 +76,7 @@ class TaskDialogue(
         }
 
         val task = updateTask?.copy(
-            name = name, priority = TaskPriority.values().get(taskPriorityIndex.value!!)
+            name = name, priority = TaskPriority.values()[taskPriorityIndex.value!!]
         )
             ?: Task(
                 name = name,

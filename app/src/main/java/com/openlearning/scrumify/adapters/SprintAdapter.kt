@@ -1,17 +1,28 @@
 package com.openlearning.scrumify.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.openlearning.scrumify.R
 import com.openlearning.scrumify.databinding.ItemSingleSprintBinding
 import com.openlearning.scrumify.databinding.ViewSprintTaskBinding
+import com.openlearning.scrumify.databinding.ViewTaskAssignedToBinding
+import com.openlearning.scrumify.models.ProjectUserData
 import com.openlearning.scrumify.models.Sprint
 import com.openlearning.scrumify.models.SprintTask
+import com.openlearning.scrumify.models.TaskStatus
+import com.openlearning.scrumify.utils.common.animateItemView
+import com.openlearning.scrumify.utils.common.showLoading
 
 class SprintAdapter(
     val context: Context,
     var projectSprints: List<Sprint>,
+    var projectUsers: List<ProjectUserData>?,
     val sprintEdit: (Int) -> Unit,
     val onClicked: (Int) -> Unit,
     val onSprintTaskClicked: (Sprint, SprintTask) -> Unit,
@@ -19,6 +30,7 @@ class SprintAdapter(
 ) :
     RecyclerView.Adapter<SprintAdapter.TaskVH>() {
 
+    private val TAG = "SprintAdapterTAG"
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskVH {
 
         val binding =
@@ -27,22 +39,31 @@ class SprintAdapter(
 
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: TaskVH, position: Int) {
 
         val sprint = projectSprints[position]
-        holder.binding.sprint = sprint
-        holder.binding.ivEdit.setOnClickListener {
+        val progress = (getProgress(sprint) * 100).toInt()
 
-            sprintEdit(position)
-        }
+        holder.binding.apply {
+            this.sprint = sprint
 
-        holder.binding.root.setOnClickListener {
+            tvSprintProgress.text = "$progress%"
+            pbrSprintProgress.progress = progress
+            ivEdit.setOnClickListener {
 
-            if (sprintSelection) {
-
-                onClicked(position)
-                sprintSelection = false
+                sprintEdit(position)
             }
+            root.setOnClickListener {
+
+                if (sprintSelection) {
+
+                    onClicked(position)
+                    sprintSelection = false
+                }
+            }
+            llTasksAppender.removeAllViews()
+
         }
 
         if (sprint.sprintTasks != null && sprint.sprintTasks!!.isNotEmpty()) {
@@ -55,8 +76,17 @@ class SprintAdapter(
                         LayoutInflater.from(context),
                         holder.binding.llTasksAppender,
                         false
-                    )
+                    ).also {
+                        animateItemView(it.root, R.anim.fade_in)
+                    }
+
+                    addUserToFreeAndAssigned(sprintTask.assignedUsers, binding)
+
                     binding.sprintTask = sprintTask
+
+                    if (sprintTask.taskIssues.size > 0) {
+                        binding.tvTaskIssueCount.text = "${sprintTask.taskIssues.size} issue(s)"
+                    }
 
                     binding.root.setOnClickListener {
 
@@ -74,36 +104,56 @@ class SprintAdapter(
         return projectSprints.size
     }
 
+    private fun addUserToFreeAndAssigned(
+        assignedUserIds: List<String>,
+        topBinding: ViewSprintTaskBinding
+    ) {
+
+        if (projectUsers == null) {
+            return
+        }
+
+        topBinding.llAssignedUsersAppender.removeAllViews()
+
+        for (user in projectUsers!!) {
+
+            if (user.user.uid in assignedUserIds) {
+
+                val binding = ViewTaskAssignedToBinding.inflate(
+                    LayoutInflater.from(context),
+                    topBinding.llAssignedUsersAppender,
+                    false
+                )
+                binding.userData = user
+                binding.apply {
+                    clRootContainer.backgroundTintList =
+                        ContextCompat.getColorStateList(context, R.color.colorPrimary)
+                }
+                topBinding.llAssignedUsersAppender.addView(binding.root)
+            }
+        }
+
+    }
+
+    private fun getProgress(sprint: Sprint): Float {
+
+        if (sprint.sprintTasks == null || sprint.sprintTasks!!.isEmpty()) {
+            return 0f;
+        }
+
+        val total = sprint.sprintTasks!!.size.toFloat()
+        var completed = 0
+        for (task in sprint.sprintTasks!!) {
+            if (task.taskStatus == TaskStatus.COMPLETE) {
+                completed++
+            }
+        }
+
+        return completed / total
+
+    }
+
     inner class TaskVH(val binding: ItemSingleSprintBinding) :
-        RecyclerView.ViewHolder(binding.root)
-
-}
-
-class SprintTaskAdapter(
-    private val sprintTasks: List<SprintTask>
-) : RecyclerView.Adapter<SprintTaskAdapter.SprintTaskVH>() {
-
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SprintTaskVH {
-
-        val binding =
-            ViewSprintTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return SprintTaskVH(binding)
-
-    }
-
-    override fun onBindViewHolder(holder: SprintTaskVH, position: Int) {
-
-        holder.binding.llAssignedUsersAppender
-
-    }
-
-    override fun getItemCount(): Int {
-
-        return sprintTasks.size
-    }
-
-    inner class SprintTaskVH(val binding: ViewSprintTaskBinding) :
         RecyclerView.ViewHolder(binding.root)
 
 }

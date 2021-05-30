@@ -125,6 +125,12 @@ class TaskFragment : Fragment(), CustomHooks {
             }
         })
 
+        viewModel.refreshAdapters.observe(viewLifecycleOwner, {
+
+            taskAdapter.notifyDataSetChanged()
+
+        })
+
     }
 
     private fun onTasksReady(tasks: List<Task>?) {
@@ -133,6 +139,14 @@ class TaskFragment : Fragment(), CustomHooks {
             taskAdapter.projectTasks = tasks
             taskAdapter.notifyDataSetChanged()
         }
+
+        mBinding.apply {
+
+            mcvMainContainer.visibility = View.VISIBLE
+            progressBar.visibility = View.GONE
+
+        }
+
     }
 
     private fun openTask(it: Task) {
