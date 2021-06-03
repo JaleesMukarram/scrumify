@@ -135,5 +135,7 @@ class AddNewProject : AppCompatActivity(), CustomHooks {
     private fun onProjectAdded() {
 
         Toast.makeText(this, "Project Added", Toast.LENGTH_SHORT).show()
+        onBackPressed()
+
     }
 }

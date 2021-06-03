@@ -67,6 +67,7 @@ class SprintFragment : Fragment(), CustomHooks {
             {
 
                 viewModel.sprintSelected.value = viewModel.allSprints.value!![it]
+                Toast.makeText(requireContext(), "Adding into sprint", Toast.LENGTH_SHORT).show()
 
             },
             // Sprint Task Clicked
@@ -148,7 +149,7 @@ class SprintFragment : Fragment(), CustomHooks {
         viewModel.enableSprintSelection.observe(viewLifecycleOwner, {
 
             if (it) {
-
+                Toast.makeText(requireContext(), "Please select Sprint to move", Toast.LENGTH_SHORT).show()
                 sprintAdapter.sprintSelection = true
                 sprintAdapter.notifyDataSetChanged()
                 viewModel.enableSprintSelection.value = false

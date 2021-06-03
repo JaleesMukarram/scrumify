@@ -20,6 +20,8 @@ object UserRepo {
     private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db: CollectionReference = Firebase.firestore.collection(USER_COLLECTION)
 
+     val auth:FirebaseAuth =  FirebaseAuth.getInstance()
+
     lateinit var currentDBUser: User
 
     suspend fun createNewUser(
